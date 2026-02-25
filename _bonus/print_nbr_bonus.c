@@ -6,7 +6,7 @@
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 12:39:52 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/25 14:18:10 by yaandria         ###   ########.fr       */
+/*   Updated: 2026/02/25 15:28:55 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,6 @@ static int	spaces_to_print(infos print_info, int print_len, int zeros_len,
 					|| print_info.specifier == 'i'))) ? 1 : 0;
 	if (print_info.pad == '0' && print_info.precision < 0)
 	{
-		// zeros will pad width minus sign
 		return ((print_info.width > (print_len + sign_len)) ? print_info.width
 			- (print_len + sign_len) : 0);
 	}

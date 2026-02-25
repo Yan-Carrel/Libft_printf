@@ -6,7 +6,7 @@
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 13:02:00 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/25 14:27:31 by yaandria         ###   ########.fr       */
+/*   Updated: 2026/02/25 15:28:40 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,37 @@ static void print_characters(infos print_info, long nbr, int spaces, int zeros);
 int    print_hex(infos print_info, unsigned int nbr)
 {
     int print_len;
+    int hex_len;
     int zeros;
     int spaces;
 
     if (nbr == 0 && print_info.precision == 0)
-        print_len = 0;
+        hex_len = 0;
     else
-        print_len = count_len(nbr);
+        hex_len = count_len(nbr);
+    print_len = hex_len;
     if (print_info.hash == '#' && nbr != 0)
         print_len += 2;
     zeros = 0;
-    if (print_info.precision > print_len)
-        zeros = print_info.precision - print_len;
+    if (print_info.precision > hex_len)
+        zeros = print_info.precision - hex_len;
     spaces = 0;
     if (print_info.width > print_len + zeros)
         spaces = print_info.width - (print_len + zeros);
     print_characters(print_info, nbr, spaces, zeros);
     print_len = print_len + zeros;
-    return (print_len + spaces + zeros);
+    return (print_len + spaces);
 }
 
 static void print_characters(infos print_info, long nbr, int spaces, int zeros)
 {
-    if (print_info.justification == 'l' && print_info.pad != '0')
-        print_n_characters(spaces, ' ');
-    if (print_info.justification != 'l' && print_info.pad == '0' && print_info.precision < 0)
-        print_n_characters(spaces, '0');
+    if (print_info.justification != 'l')
+    {
+        if (print_info.pad == '0' && print_info.precision < 0)
+            print_n_characters(spaces, '0');
+        else
+            print_n_characters(spaces, ' ');
+    }
     if (nbr != 0)
     {
         if (print_info.hash == '#' && nbr != 0)
@@ -57,7 +62,7 @@ static void print_characters(infos print_info, long nbr, int spaces, int zeros)
     }
     print_n_characters (zeros, '0');
     ft_puthex(nbr, print_info.specifier);
-    if (print_info.justification != 'l')
+    if (print_info.justification == 'l')
         print_n_characters(spaces, ' ');
 }
 
