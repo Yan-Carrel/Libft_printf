@@ -6,7 +6,7 @@
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 13:02:00 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/24 15:58:50 by yaandria         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:27:31 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void print_characters(infos print_info, long nbr, int spaces, int zeros)
         }
     }
     print_n_characters (zeros, '0');
-        ft_puthex(nbr, print_info.specifier);
+    ft_puthex(nbr, print_info.specifier);
     if (print_info.justification != 'l')
         print_n_characters(spaces, ' ');
 }

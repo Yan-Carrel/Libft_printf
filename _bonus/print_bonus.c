@@ -6,7 +6,7 @@
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 12:51:49 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/24 15:20:30 by yaandria         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:35:17 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,8 @@ static int  handle_pointer(va_list list, infos print_info)
     if (ptr == NULL)
         return (print_string(print_info, "(nil)"));
     else
-        return (ft_puthex((unsigned long)ptr, print_info.specifier));
+    {
+        ft_putstr_fd("0x", 1);
+        return (ft_puthex((unsigned long)ptr, print_info.specifier) + 2);
+    }
 }
