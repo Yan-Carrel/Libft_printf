@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   parse_all_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 15:57:32 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/19 12:25:43 by yaandria         ###   ########.fr       */
+/*   Updated: 2026/02/24 14:16:36 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_printf.h"
+#include "ft_printf.h"
 #include "libft.h"
 
-static void parse_pad(infos *print_info, char *first, int *i_ptr);
-static void parse_width(infos *print_info, char *first, int *i_ptr);
-static void parse_precision(infos *print_info, char *first, int *i_ptr);
-void    parse_all(char *first, infos *print_info, int *i_ptr)
+static void parse_pad(infos *print_info, const char *first, int *i_ptr);
+static void parse_width(infos *print_info, const char *first, int *i_ptr);
+static void parse_precision(infos *print_info, const char *first, int *i_ptr);
+void    parse_all(const char *first, infos *print_info, int *i_ptr)
 {
     (*i_ptr)++;
     print_info->pad = ' ';
@@ -24,6 +24,8 @@ void    parse_all(char *first, infos *print_info, int *i_ptr)
     print_info->precision = -1;
     print_info->specifier = '\0';
     print_info->justification = 'r';
+    print_info->hash = '0';
+    print_info->plus = '0';
     parse_pad(print_info, first, i_ptr);
     parse_width(print_info, first, i_ptr);
     parse_precision(print_info, first, i_ptr);
@@ -31,14 +33,17 @@ void    parse_all(char *first, infos *print_info, int *i_ptr)
         print_info->specifier = first[*i_ptr];
 }
 
-static void parse_pad(infos *print_info, char *first, int *i_ptr)
+static void parse_pad(infos *print_info, const char *first, int *i_ptr)
 {
-    while (first[*i_ptr] != '.' && !(first[*i_ptr] >= '1' 
-    && first[*i_ptr] <= '9') 
-    && !(first[*i_ptr] >= 'c' 
-    && first[*i_ptr] <= 'x') 
-    && first[*i_ptr] != 'X')
+    while (first[*i_ptr] != '.' 
+        && !(first[*i_ptr] >= '1' && first[*i_ptr] <= '9') 
+        && !(first[*i_ptr] >= 'c' && first[*i_ptr] <= 'x') 
+        && first[*i_ptr] != 'X')
     {
+        if (first[*i_ptr] == '+')
+            print_info->plus = '+';
+        if (first[*i_ptr] == '#')
+            print_info->hash = '#';
         if (first[*i_ptr] == '-')
             print_info->justification = 'l';
         if (first[*i_ptr] == '0')
@@ -47,7 +52,7 @@ static void parse_pad(infos *print_info, char *first, int *i_ptr)
     }
 }
 
-static void parse_width(infos *print_info, char *first, int *i_ptr)
+static void parse_width(infos *print_info, const char *first, int *i_ptr)
 {
     if (first[*i_ptr] >= '1' && first[*i_ptr] <= '9')
     {
@@ -61,7 +66,7 @@ static void parse_width(infos *print_info, char *first, int *i_ptr)
     }
 }
 
-static void parse_precision(infos *print_info, char *first, int *i_ptr)
+static void parse_precision(infos *print_info, const char *first, int *i_ptr)
 {
     if (first[*i_ptr] == '.')
         (*i_ptr)++;
