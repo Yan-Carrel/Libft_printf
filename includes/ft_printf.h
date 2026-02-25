@@ -6,7 +6,7 @@
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 11:07:32 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/24 11:18:31 by yaandria         ###   ########.fr       */
+/*   Updated: 2026/02/25 15:58:45 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ int		print_basics(char specifier, va_list list);
 int		ft_putchar_ba(char c);
 int		ft_puthex_ba(unsigned long nbr, char format);
 void	ft_putnbr_ba(long nbr);
-int     ft_putstr_ba(char *s);
+int		ft_putstr_ba(char *s);
 
 #endif

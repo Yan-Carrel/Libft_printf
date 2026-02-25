@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_hex_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_puthex_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 11:09:52 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/24 13:50:09 by yaandria         ###   ########.fr       */
+/*   Updated: 2026/02/25 15:58:22 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "libft.h"
-#include "libft.h"
 #include "ft_printf.h"
+#include "libft.h"
 
 int	ft_puthex(unsigned long nbr, char format)
 {

@@ -6,7 +6,7 @@
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 12:39:52 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/25 15:28:55 by yaandria         ###   ########.fr       */
+/*   Updated: 2026/02/25 15:54:15 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	print_right(infos print_info, long nbr, int zeros, int print_len)
 		print_nbr_spaces('0', zeros);
 		ft_put_n_nbr(nbr, print_len);
 	}
-	return (print_len + zeros + spaces + neg + sign_count);
+	return (print_len + zeros + spaces + sign_count);
 }
 
 static int	handle_signs(infos print_info, int neg)
