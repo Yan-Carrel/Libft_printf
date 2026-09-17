@@ -6,19 +6,20 @@
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 13:47:22 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/25 15:58:19 by yaandria         ###   ########.fr       */
+/*   Updated: 2026/02/27 16:12:05 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft.h"
 
-static int	count_digits(long n);
+static int	count_nbr_digits(long n);
+
 void	ft_put_n_nbr(long nbr, int n)
 {
 	int	count;
 
-	count = count_digits(nbr);
+	count = count_nbr_digits(nbr);
 	if (n <= 0)
 		return ;
 	while (count > n)
@@ -31,9 +32,9 @@ void	ft_put_n_nbr(long nbr, int n)
 	ft_putchar_fd((nbr % 10) + '0', 1);
 }
 
-static int	count_digits(long n)
+static int	count_nbr_digits(long n)
 {
-	int count;
+	int	count;
 
 	count = 1;
 	while (n > 9)

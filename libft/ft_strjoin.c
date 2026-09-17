@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puthex_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 11:09:52 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/27 14:37:18 by yaandria         ###   ########.fr       */
+/*   Created: 2026/02/04 11:02:09 by yaandria          #+#    #+#             */
+/*   Updated: 2026/02/11 14:30:42 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "libft.h"
 
-int	ft_puthex(unsigned long nbr, char format)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char			*base;
-	int				count;
-	unsigned long	nbr_cpy;
+	char	*buffer;
+	size_t	strlen_s1;
+	size_t	strlen_s2;
 
-	count = 0;
-	nbr_cpy = nbr;
-	while (nbr_cpy >= 16)
-	{
-		nbr_cpy /= 16;
-		count++;
-	}
-	if (format == 'X')
-		base = "0123456789ABCDEF";
-	else
-		base = "0123456789abcdef";
-	if (nbr >= 16)
-		ft_puthex(nbr / 16, format);
-	ft_putchar_fd(base[nbr % 16], 1);
-	return (count + 1);
+	if (!s1 || !s2)
+		return (NULL);
+	strlen_s1 = ft_strlen(s1);
+	strlen_s2 = ft_strlen(s2);
+	buffer = malloc(strlen_s1 + strlen_s2 + 1);
+	if (!buffer)
+		return (NULL);
+	buffer[strlen_s1 + strlen_s2] = '\0';
+	ft_memcpy(buffer, s1, ft_strlen(s1));
+	ft_memcpy(&buffer[strlen_s1], s2, strlen_s2);
+	return (buffer);
 }

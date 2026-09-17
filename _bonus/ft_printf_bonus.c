@@ -6,7 +6,7 @@
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 14:01:11 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/25 15:58:11 by yaandria         ###   ########.fr       */
+/*   Updated: 2026/02/27 14:55:47 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 
 static int	process(const char *first, va_list list, int *i);
+
 int	ft_printf(const char *first, ...)
 {
 	va_list			list;
@@ -40,7 +41,7 @@ int	ft_printf(const char *first, ...)
 
 static int	process(const char *first, va_list list, int *i)
 {
-	infos			print_info;
+	t_infos			print_info;
 	unsigned int	count;
 
 	count = 0;

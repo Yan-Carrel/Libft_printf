@@ -6,22 +6,20 @@
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 11:09:46 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/25 15:58:39 by yaandria         ###   ########.fr       */
+/*   Updated: 2026/02/27 15:02:46 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft.h"
 
-static void	put_padding(char c, int len);
-static int	hex_len(unsigned long n);
-int			print_caseA(unsigned long nbr, int precision_zeros, int digits_len,
+int			print_case_a(unsigned long nbr, int precision_zeros, int digits_len,
 				int padding);
-int			print_caseB(unsigned long nbr, int digits_len, int padding);
-int			print_caseC(unsigned long nbr, int precision_zeros, int digits_len,
+int			print_case_b(unsigned long nbr, int digits_len, int padding);
+int			print_case_c(unsigned long nbr, int precision_zeros, int digits_len,
 				int padding);
 
-int	print_pointer(infos info, unsigned long nbr)
+int	print_pointer(t_infos info, unsigned long nbr)
 {
 	int	digits_len;
 	int	precision_zeros;
@@ -41,15 +39,15 @@ int	print_pointer(infos info, unsigned long nbr)
 	else
 		padding = 0;
 	if (info.justification == 'l')
-		printed = print_caseA(nbr, precision_zeros, digits_len, padding);
+		printed = print_case_a(nbr, precision_zeros, digits_len, padding);
 	else if (info.pad == '0' && info.precision == -1)
-		printed = print_caseB(nbr, digits_len, padding);
+		printed = print_case_b(nbr, digits_len, padding);
 	else
-		printed = print_caseC(nbr, precision_zeros, digits_len, padding);
+		printed = print_case_c(nbr, precision_zeros, digits_len, padding);
 	return (printed);
 }
 
-int	print_caseA(unsigned long nbr, int precision_zeros, int digits_len,
+int	print_case_a(unsigned long nbr, int precision_zeros, int digits_len,
 		int padding)
 {
 	int	count;
@@ -66,7 +64,7 @@ int	print_caseA(unsigned long nbr, int precision_zeros, int digits_len,
 	return (count);
 }
 
-int	print_caseB(unsigned long nbr, int digits_len, int padding)
+int	print_case_b(unsigned long nbr, int digits_len, int padding)
 {
 	int	count;
 
@@ -80,7 +78,7 @@ int	print_caseB(unsigned long nbr, int digits_len, int padding)
 	return (count);
 }
 
-int	print_caseC(unsigned long nbr, int precision_zeros, int digits_len,
+int	print_case_c(unsigned long nbr, int precision_zeros, int digits_len,
 		int padding)
 {
 	int	count;
@@ -95,25 +93,4 @@ int	print_caseC(unsigned long nbr, int precision_zeros, int digits_len,
 	if (digits_len > 0)
 		count += ft_puthex(nbr, 'x');
 	return (count);
-}
-
-static void	put_padding(char c, int len)
-{
-	while (len-- > 0)
-		ft_putchar_fd(c, 1);
-}
-
-static int	hex_len(unsigned long n)
-{
-	int	len;
-
-	if (n == 0)
-		return (1);
-	len = 0;
-	while (n)
-	{
-		len++;
-		n /= 16;
-	}
-	return (len);
 }

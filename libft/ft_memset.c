@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puthex_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 11:09:52 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/27 14:37:18 by yaandria         ###   ########.fr       */
+/*   Created: 2026/01/20 08:44:46 by yaandria          #+#    #+#             */
+/*   Updated: 2026/02/10 13:54:03 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "libft.h"
 
-int	ft_puthex(unsigned long nbr, char format)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	char			*base;
-	int				count;
-	unsigned long	nbr_cpy;
+	unsigned char	*str;
+	size_t			i;
 
-	count = 0;
-	nbr_cpy = nbr;
-	while (nbr_cpy >= 16)
+	str = (unsigned char *)s;
+	i = 0;
+	while (i < n)
 	{
-		nbr_cpy /= 16;
-		count++;
+		str[i] = (char)c;
+		i++;
 	}
-	if (format == 'X')
-		base = "0123456789ABCDEF";
-	else
-		base = "0123456789abcdef";
-	if (nbr >= 16)
-		ft_puthex(nbr / 16, format);
-	ft_putchar_fd(base[nbr % 16], 1);
-	return (count + 1);
+	return (str);
 }

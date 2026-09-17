@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puthex_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 11:09:52 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/27 14:37:18 by yaandria         ###   ########.fr       */
+/*   Created: 2026/02/04 11:00:24 by yaandria          #+#    #+#             */
+/*   Updated: 2026/02/11 14:22:51 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "libft.h"
 
-int	ft_puthex(unsigned long nbr, char format)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char			*base;
-	int				count;
-	unsigned long	nbr_cpy;
+	char			*substring;
+	unsigned int	i;
 
-	count = 0;
-	nbr_cpy = nbr;
-	while (nbr_cpy >= 16)
-	{
-		nbr_cpy /= 16;
-		count++;
-	}
-	if (format == 'X')
-		base = "0123456789ABCDEF";
-	else
-		base = "0123456789abcdef";
-	if (nbr >= 16)
-		ft_puthex(nbr / 16, format);
-	ft_putchar_fd(base[nbr % 16], 1);
-	return (count + 1);
+	if (!s)
+		return (NULL);
+	i = 0;
+	if (start >= ft_strlen(s))
+		return (ft_strdup(""));
+	if (len > ft_strlen(s) - start)
+		len = ft_strlen(s) - start;
+	substring = (char *)malloc(sizeof(char) * (len + 1));
+	if (!substring)
+		return (NULL);
+	ft_strlcpy(substring, s + start, len + 1);
+	return (substring);
 }

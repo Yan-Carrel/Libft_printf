@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puthex_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 11:09:52 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/27 14:37:18 by yaandria         ###   ########.fr       */
+/*   Created: 2026/02/07 07:37:34 by yaandria          #+#    #+#             */
+/*   Updated: 2026/02/11 14:12:12 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "libft.h"
 
-int	ft_puthex(unsigned long nbr, char format)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char			*base;
-	int				count;
-	unsigned long	nbr_cpy;
+	unsigned int	i;
+	unsigned int	count;
+	char			*new_str;
 
+	if (!s || !f)
+		return (NULL);
+	i = 0;
 	count = 0;
-	nbr_cpy = nbr;
-	while (nbr_cpy >= 16)
-	{
-		nbr_cpy /= 16;
+	while (s[count] != '\0')
 		count++;
+	new_str = malloc((count + 1) * sizeof(char));
+	if (!new_str)
+		return (NULL);
+	while (s[i] != '\0')
+	{
+		new_str[i] = f(i, s[i]);
+		i++;
 	}
-	if (format == 'X')
-		base = "0123456789ABCDEF";
-	else
-		base = "0123456789abcdef";
-	if (nbr >= 16)
-		ft_puthex(nbr / 16, format);
-	ft_putchar_fd(base[nbr % 16], 1);
-	return (count + 1);
+	new_str[i] = '\0';
+	return (new_str);
 }

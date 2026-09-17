@@ -6,15 +6,16 @@
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 12:26:47 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/25 15:58:30 by yaandria         ###   ########.fr       */
+/*   Updated: 2026/02/27 16:09:12 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft.h"
 
-static void	print_spaces(infos print_info, int n);
-int	print_char(infos print_info, char c)
+static void	print_spaces(t_infos print_info, int n);
+
+int	print_char(t_infos print_info, char c)
 {
 	int	padding;
 
@@ -36,9 +37,9 @@ int	print_char(infos print_info, char c)
 	return (1);
 }
 
-static void	print_spaces(infos print_info, int n)
+static void	print_spaces(t_infos print_info, int n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < n)

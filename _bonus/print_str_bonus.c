@@ -6,7 +6,7 @@
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 16:46:15 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/25 15:58:42 by yaandria         ###   ########.fr       */
+/*   Updated: 2026/02/27 16:12:44 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 #include "libft.h"
 
 static void	print_n_str(char *s, size_t len);
-static void	print_spaces(infos print_info, int n);
-int	print_string(infos print_info, char *s)
+static void	print_spaces(t_infos print_info, int n);
+
+int	print_string(t_infos print_info, char *s)
 {
 	int	str_print_len;
 
@@ -44,9 +45,9 @@ static void	print_n_str(char *s, size_t len)
 	}
 }
 
-static void	print_spaces(infos print_info, int n)
+static void	print_spaces(t_infos print_info, int n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < n)

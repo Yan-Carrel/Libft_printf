@@ -6,12 +6,12 @@
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 16:20:06 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/25 15:59:11 by yaandria         ###   ########.fr       */
+/*   Updated: 2026/02/27 14:26:45 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
-#include "../includes/libft.h"
+#include "ft_printf.h"
+#include "libft.h"
 
 int	ft_putstr_ba(char *s)
 {

@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puthex_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 11:09:52 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/27 14:37:18 by yaandria         ###   ########.fr       */
+/*   Created: 2026/02/09 10:06:24 by yaandria          #+#    #+#             */
+/*   Updated: 2026/02/13 02:06:18 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "libft.h"
 
-int	ft_puthex(unsigned long nbr, char format)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	char			*base;
-	int				count;
-	unsigned long	nbr_cpy;
+	t_list	*current;
+	t_list	*next;
 
-	count = 0;
-	nbr_cpy = nbr;
-	while (nbr_cpy >= 16)
+	if (!lst || !del)
+		return ;
+	current = *lst;
+	while (current != NULL)
 	{
-		nbr_cpy /= 16;
-		count++;
+		next = current->next;
+		del(current->content);
+		free(current);
+		current = next;
 	}
-	if (format == 'X')
-		base = "0123456789ABCDEF";
-	else
-		base = "0123456789abcdef";
-	if (nbr >= 16)
-		ft_puthex(nbr / 16, format);
-	ft_putchar_fd(base[nbr % 16], 1);
-	return (count + 1);
+	*lst = NULL;
 }

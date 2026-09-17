@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/24 11:07:32 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/25 15:58:45 by yaandria         ###   ########.fr       */
+/*   Created: 2026/02/02 06:30:04 by yaandria          #+#    #+#             */
+/*   Updated: 2026/02/11 13:38:36 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#if !defined(FT_PRINT_F_H)
-# define FT_PRINT_F_H
+#include "libft.h"
 
-# include "../includes/ft_printf.h"
-# include "libft.h"
-# include <stdarg.h>
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
+{
+	size_t				i;
+	unsigned const char	*str1;
+	unsigned const char	*str2;
 
-int		ft_printf(const char *format, ...);
-int		print_basics(char specifier, va_list list);
-int		ft_putchar_ba(char c);
-int		ft_puthex_ba(unsigned long nbr, char format);
-void	ft_putnbr_ba(long nbr);
-int		ft_putstr_ba(char *s);
-
-#endif
+	str1 = (unsigned const char *)s1;
+	str2 = (unsigned const char *)s2;
+	i = 0;
+	while (i < n)
+	{
+		if (str1[i] != str2[i])
+			return (str1[i] - str2[i]);
+		i++;
+	}
+	return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 12:39:52 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/25 15:54:15 by yaandria         ###   ########.fr       */
+/*   Updated: 2026/02/27 16:09:35 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,11 @@
 #include "libft.h"
 
 static void	print_nbr_spaces(char c, int len);
-static int	handle_signs(infos print_info, int neg);
-static int	count_digits(long n, char specifier);
-static void	print_signs(infos print_info, int neg);
-static int	spaces_to_print(infos print_info, int print_len, int zeros_len,
-				int neg);
-static int	get_zeros(infos print_info, int print_len);
-static int	print_left(infos print_info, long nbr, int zeros, int print_len);
-static int	print_right(infos print_info, long nbr, int zeros, int print_len);
-int	print_nbr(infos print_info, long nbr)
+static void	print_signs(t_infos print_info, int neg);
+static int	print_left(t_infos print_info, long nbr, int zeros, int print_len);
+static int	print_right(t_infos print_info, long nbr, int zeros, int print_len);
+
+int	print_nbr(t_infos print_info, long nbr)
 {
 	int	print_len;
 	int	zeros;
@@ -42,7 +38,7 @@ int	print_nbr(infos print_info, long nbr)
 	return (count);
 }
 
-static int	print_left(infos print_info, long nbr, int zeros, int print_len)
+static int	print_left(t_infos print_info, long nbr, int zeros, int print_len)
 {
 	int	spaces;
 	int	neg;
@@ -60,7 +56,7 @@ static int	print_left(infos print_info, long nbr, int zeros, int print_len)
 	return (spaces + zeros + print_len + sign_count);
 }
 
-static int	print_right(infos print_info, long nbr, int zeros, int print_len)
+static int	print_right(t_infos print_info, long nbr, int zeros, int print_len)
 {
 	int	spaces;
 	int	neg;
@@ -88,20 +84,7 @@ static int	print_right(infos print_info, long nbr, int zeros, int print_len)
 	return (print_len + zeros + spaces + sign_count);
 }
 
-static int	handle_signs(infos print_info, int neg)
-{
-	int	count;
-
-	count = 0;
-	if (neg)
-		count++;
-	if (print_info.plus == '+' && (print_info.specifier == 'd'
-			|| print_info.specifier == 'i') && !neg)
-		count++;
-	return (count);
-}
-
-static void	print_signs(infos print_info, int neg)
+static void	print_signs(t_infos print_info, int neg)
 {
 	if (neg)
 		ft_putchar_fd('-', 1);
@@ -119,52 +102,5 @@ static void	print_nbr_spaces(char c, int len)
 	{
 		ft_putchar_fd(c, 1);
 		i++;
-	}
-}
-
-static int	count_digits(long n, char specifier)
-{
-	int				count;
-	unsigned long	nb;
-
-	count = 0;
-	if ((specifier == 'd' || specifier == 'i') && n < 0)
-		nb = -n;
-	else
-		nb = (unsigned long)n;
-	if (nb == 0)
-		return (1);
-	while (nb > 0)
-	{
-		nb /= 10;
-		count++;
-	}
-	return (count);
-}
-
-static int	get_zeros(infos print_info, int print_len)
-{
-	if (print_info.precision > print_len)
-		return (print_info.precision - print_len);
-	return (0);
-}
-
-static int	spaces_to_print(infos print_info, int print_len, int zeros_len,
-		int neg)
-{
-	int	sign_len;
-
-	sign_len = (neg || (print_info.plus == '+' && (print_info.specifier == 'd'
-					|| print_info.specifier == 'i'))) ? 1 : 0;
-	if (print_info.pad == '0' && print_info.precision < 0)
-	{
-		return ((print_info.width > (print_len + sign_len)) ? print_info.width
-			- (print_len + sign_len) : 0);
-	}
-	else
-	{
-		return ((print_info.width > (print_len + zeros_len
-					+ sign_len)) ? print_info.width - (print_len + zeros_len
-				+ sign_len) : 0);
 	}
 }

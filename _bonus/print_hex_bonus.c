@@ -6,7 +6,7 @@
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 13:02:00 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/25 15:58:33 by yaandria         ###   ########.fr       */
+/*   Updated: 2026/02/27 14:57:30 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 
 static void	print_n_characters(int len, char c);
 static int	count_len(unsigned long nbr);
-static void	print_characters(infos print_info, long nbr, int spaces, int zeros);
-int	print_hex(infos print_info, unsigned int nbr)
+static void	print_characters(t_infos print_info, long nbr, int spaces,
+				int zeros);
+
+int	print_hex(t_infos print_info, unsigned int nbr)
 {
 	int	print_len;
 	int	hex_len;
@@ -41,7 +43,8 @@ int	print_hex(infos print_info, unsigned int nbr)
 	return (print_len + spaces);
 }
 
-static void	print_characters(infos print_info, long nbr, int spaces, int zeros)
+static void	print_characters(t_infos print_info, long nbr, int spaces,
+		int zeros)
 {
 	if (print_info.justification != 'l')
 	{
@@ -80,7 +83,7 @@ static void	print_n_characters(int len, char c)
 
 static int	count_len(unsigned long nbr)
 {
-	int count;
+	int	count;
 
 	count = 1;
 	while (nbr >= 16)

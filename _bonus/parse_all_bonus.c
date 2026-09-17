@@ -6,17 +6,18 @@
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 15:57:32 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/25 15:58:25 by yaandria         ###   ########.fr       */
+/*   Updated: 2026/02/27 16:08:23 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft.h"
 
-static void	parse_pad(infos *print_info, const char *first, int *i_ptr);
-static void	parse_width(infos *print_info, const char *first, int *i_ptr);
-static void	parse_precision(infos *print_info, const char *first, int *i_ptr);
-void	parse_all(const char *first, infos *print_info, int *i_ptr)
+static void	parse_pad(t_infos *print_info, const char *first, int *i_ptr);
+static void	parse_width(t_infos *print_info, const char *first, int *i_ptr);
+static void	parse_precision(t_infos *print_info, const char *first, int *i_ptr);
+
+void	parse_all(const char *first, t_infos *print_info, int *i_ptr)
 {
 	(*i_ptr)++;
 	print_info->pad = ' ';
@@ -33,7 +34,7 @@ void	parse_all(const char *first, infos *print_info, int *i_ptr)
 		print_info->specifier = first[*i_ptr];
 }
 
-static void	parse_pad(infos *print_info, const char *first, int *i_ptr)
+static void	parse_pad(t_infos *print_info, const char *first, int *i_ptr)
 {
 	while (first[*i_ptr] != '.' && !(first[*i_ptr] >= '1'
 			&& first[*i_ptr] <= '9') && !(first[*i_ptr] >= 'c'
@@ -51,7 +52,7 @@ static void	parse_pad(infos *print_info, const char *first, int *i_ptr)
 	}
 }
 
-static void	parse_width(infos *print_info, const char *first, int *i_ptr)
+static void	parse_width(t_infos *print_info, const char *first, int *i_ptr)
 {
 	if (first[*i_ptr] >= '1' && first[*i_ptr] <= '9')
 	{
@@ -65,7 +66,7 @@ static void	parse_width(infos *print_info, const char *first, int *i_ptr)
 	}
 }
 
-static void	parse_precision(infos *print_info, const char *first, int *i_ptr)
+static void	parse_precision(t_infos *print_info, const char *first, int *i_ptr)
 {
 	if (first[*i_ptr] == '.')
 		(*i_ptr)++;

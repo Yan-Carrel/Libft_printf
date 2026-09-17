@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puthex_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 11:09:52 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/27 14:37:18 by yaandria         ###   ########.fr       */
+/*   Created: 2026/02/09 11:01:14 by yaandria          #+#    #+#             */
+/*   Updated: 2026/02/10 14:17:05 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "libft.h"
 
-int	ft_puthex(unsigned long nbr, char format)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	char			*base;
-	int				count;
-	unsigned long	nbr_cpy;
+	size_t	dst_size;
+	size_t	i;
+	size_t	j;
 
-	count = 0;
-	nbr_cpy = nbr;
-	while (nbr_cpy >= 16)
+	i = 0;
+	j = 0;
+	if (size == 0)
+		return (ft_strlen(src));
+	while (dst[i] != '\0' && i < size)
+		i++;
+	dst_size = i;
+	if (dst_size == size)
+		return (size + ft_strlen(src));
+	while (src[j] && (i + 1) < size)
 	{
-		nbr_cpy /= 16;
-		count++;
+		dst[i] = src[j];
+		i++;
+		j++;
 	}
-	if (format == 'X')
-		base = "0123456789ABCDEF";
-	else
-		base = "0123456789abcdef";
-	if (nbr >= 16)
-		ft_puthex(nbr / 16, format);
-	ft_putchar_fd(base[nbr % 16], 1);
-	return (count + 1);
+	dst[i] = '\0';
+	return (dst_size + ft_strlen(src));
 }

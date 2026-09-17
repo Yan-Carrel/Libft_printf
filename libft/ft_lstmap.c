@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puthex_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 11:09:52 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/27 14:37:18 by yaandria         ###   ########.fr       */
+/*   Created: 2026/02/09 10:10:15 by yaandria          #+#    #+#             */
+/*   Updated: 2026/02/11 14:30:56 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "libft.h"
 
-int	ft_puthex(unsigned long nbr, char format)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	char			*base;
-	int				count;
-	unsigned long	nbr_cpy;
+	t_list	*head;
+	t_list	*new_node;
+	void	*content;
 
-	count = 0;
-	nbr_cpy = nbr;
-	while (nbr_cpy >= 16)
+	if (!lst || !f || !del)
+		return (NULL);
+	head = NULL;
+	while (lst != NULL)
 	{
-		nbr_cpy /= 16;
-		count++;
+		content = f(lst->content);
+		new_node = ft_lstnew(content);
+		if (!new_node)
+		{
+			del(content);
+			ft_lstclear(&head, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&head, new_node);
+		lst = lst->next;
 	}
-	if (format == 'X')
-		base = "0123456789ABCDEF";
-	else
-		base = "0123456789abcdef";
-	if (nbr >= 16)
-		ft_puthex(nbr / 16, format);
-	ft_putchar_fd(base[nbr % 16], 1);
-	return (count + 1);
+	return (head);
 }

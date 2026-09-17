@@ -6,12 +6,12 @@
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 16:22:10 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/24 12:22:26 by yaandria         ###   ########.fr       */
+/*   Updated: 2026/02/27 13:49:40 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
-#include "../includes/libft.h"
+#include "ft_printf.h"
+#include "libft.h"
 
 int	ft_puthex_ba(unsigned long nbr, char format)
 {

@@ -6,64 +6,72 @@
 #    By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/25 16:03:47 by yaandria          #+#    #+#              #
-#    Updated: 2026/02/25 16:12:44 by yaandria         ###   ########.fr        #
+#    Updated: 2026/02/27 14:08:18 by yaandria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -I./includes/ -I./_bonus/
-RM = rm -rf
-NAME = libftprintf.a
-NAME_BONUS = libftprintf_bonus.a
+NAME        := libftprintf.a
 
-# Basic sources
-SRCS = ft_printf.c srcs/ft_putchar_ba.c srcs/ft_putstr_ba.c srcs/ft_puthex_ba.c srcs/ft_putnbr_ba.c srcs/print_basics.c
-OBJS = $(SRCS:.c=.o)
+CC          := cc
+CFLAGS      := -Wall -Wextra -Werror
 
-# Bonus sources
-BONUS_SRCS = _bonus/ft_printf_bonus.c \
-	_bonus/print_bonus.c \
-	_bonus/print_char_bonus.c \
-	_bonus/print_str_bonus.c \
-	_bonus/print_nbr_bonus.c \
-	_bonus/print_hex_bonus.c \
-	_bonus/print_pointer_bonus.c \
-	_bonus/ft_put_n_nbr_bonus.c \
-	_bonus/ft_puthex_bonus.c \
-	_bonus/parse_all_bonus.c
+AR          := ar
+ARFLAGS     := rcs
+RM          := rm -f
 
-BONUS_OBJS = $(BONUS_SRCS:.c=.o)
+SRC_DIR     := srcs
+INC_DIR     := header/.
+BONUS_DIR   := _bonus/.
+LIBFT_DIR   := libft
+LIBFT_A     := $(LIBFT_DIR)/libft.a
 
-LIBFT = libft/libft.a
+# ---------- Mandatory ----------
+MAND_SRC    := ft_printf.c $(wildcard $(SRC_DIR)/*.c)
+MAND_OBJ    := $(MAND_SRC:.c=.o)
+MAND_INC    := -I$(INC_DIR) -I$(LIBFT_DIR)
+
+# ---------- Bonus ----------
+BONUS_SRC   := $(wildcard $(BONUS_DIR)/*.c)
+BONUS_OBJ   := $(BONUS_SRC:.c=.o)
+BONUS_INC   := -I$(BONUS_DIR) -I$(LIBFT_DIR)
+
+BONUS_STAMP := .bonus
+
+.PHONY: all bonus clean fclean re
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@echo "Merging libft.a into $(NAME)..."
-	ar x $(LIBFT)
-	ar rcs $(NAME) $(OBJS) *.o
-	@echo "$(NAME) created successfully!"
+# Build mandatory library
+$(NAME): $(LIBFT_A) $(MAND_OBJ)
+	@cp $(LIBFT_A) $(NAME)
+	@$(AR) $(ARFLAGS) $(NAME) $(MAND_OBJ)
 
-bonus: $(NAME_BONUS)
+# Build bonus: add bonus objects into the same NAME
+bonus: $(BONUS_STAMP)
 
-$(NAME_BONUS): $(BONUS_OBJS)
-	@echo "Creating bonus library $(NAME_BONUS)..."
-	ar x $(LIBFT)
-	ar rcs $(NAME_BONUS) $(BONUS_OBJS) *.o
-	@echo "$(NAME_BONUS) created successfully!"
+$(BONUS_STAMP): $(LIBFT_A) $(MAND_OBJ) $(BONUS_OBJ)
+	@cp $(LIBFT_A) $(NAME)
+	@$(AR) $(ARFLAGS) $(NAME) $(filter-out ft_printf.o, $(MAND_OBJ)) $(BONUS_OBJ)
+	@touch $(BONUS_STAMP)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+# Build libft using its own Makefile
+$(LIBFT_A):
+	@$(MAKE) -C $(LIBFT_DIR)
+
+# Compile mandatory (root + srcs) using header/ft_printf.h
+%.o: %.c $(INC_DIR)/ft_printf.h
+	@$(CC) $(CFLAGS) $(MAND_INC) -c $< -o $@
+
+# Compile bonus using _bonus/ft_printf.h
+$(BONUS_DIR)/%.o: $(BONUS_DIR)/%.c $(BONUS_DIR)/ft_printf_bonus.h
+	@$(CC) $(CFLAGS) $(BONUS_INC) -c $< -o $@
 
 clean:
-	$(RM) $(OBJS) $(BONUS_OBJS) *.o
+	@$(RM) $(MAND_OBJ) $(BONUS_OBJ) $(BONUS_STAMP)
+	@$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
-	$(RM) $(NAME) $(NAME_BONUS)
+	@$(RM) $(NAME)
+	@$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
-
-re_bonus: fclean bonus
-
-.PHONY: all bonus clean fclean re re_bonus
-.SILENT:

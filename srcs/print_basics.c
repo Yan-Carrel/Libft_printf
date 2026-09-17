@@ -6,17 +6,18 @@
 /*   By: yaandria <yaandria@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:34:30 by yaandria          #+#    #+#             */
-/*   Updated: 2026/02/25 15:59:14 by yaandria         ###   ########.fr       */
+/*   Updated: 2026/02/27 14:27:13 by yaandria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
-#include "../includes/libft.h"
+#include "ft_printf.h"
+#include "libft.h"
 
 static int	count_digits(long n);
 static int	handle_str(va_list list);
 static int	handle_pointer(va_list list, char specifier);
 static int	handle_digits(va_list list, char specifier);
+
 int	print_basics(char specifier, va_list list)
 {
 	if (specifier == 'c')
